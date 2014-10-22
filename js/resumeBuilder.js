@@ -3,11 +3,20 @@ var bio = {
 	"role" : "software designer",
 	"welcome" : "I design software with an eye to the larger, human system within which software, invariably operates. I want to work with people who embrace change and explore new ideas. I want to work with an organisation which understands how to nurture individuals, the community and the environment.\nI believe that creating something from nothing is a process as close to magic and to be called so. There is no accounting for innovation in a company's balance sheet.",
 	"image" : "images/picnic.jpg",
-	"web" : "http://www.cargosoon.info",
-	"twitter" : "cargosoon",
-	"linkedin" : "http://au.linkedin.com/pub/james-langmead/1b/349/a1",
-	"phone" : "+61417401452",
-	"skills" : ["python", "javascript", "business analysis", "sql"]
+	"contacts" : {
+		"twitter" : "cargosoon",
+		"linkedin" : "http://au.linkedin.com/pub/james-langmead/1b/349/a1",
+		"phone" : "+61417401452",
+		"web" : "http://www.cargosoon.info",
+		"address" : "Brisbane, QLD, Australia",
+		"email" : "cargosoon@gmail.com"
+	},
+	"skills" : [
+		"python", 
+		"javascript", 
+		"business analysis", 
+		"sql"
+	]
 };
 
 var work = {
@@ -134,19 +143,19 @@ var education = {
 		"institution"  : "University of Queensland",
 		"qualification" : "Bachelor of Information Technology",
 		"major" : "Information Systems",
-		"graduation" : 2007
+		"graduation" : "2007-06-01"
 	},
 	{
 		"institution"  : "University of Queensland",
 		"qualification" : "Bachelor of Arts",
 		"major" : "Cultural Studies",
-		"graduation" : 2007
+		"graduation" : "2007-06-01"
 	},
 	{
 		"institution"  : "Queensland University of Technology",
 		"qualification" : "Master of Business Administration",
 		"major" : "Innovation",
-		"graduation" : 2016
+		"graduation" : "2016-06-01"
 	}
 	]
 };
@@ -155,32 +164,47 @@ var projects = {
 	"projects" : [
 	{
 		"name" : "rungling",
-		"logo" : "",
+		"logo" : "images/rungling-logo-white-thumbnail.jpg",
 		"web" : "http://www.rungling.com/",
-		"summary" : "Crowd funding for songwriters"
+		"summary" : "Crowd funding for songwriters",
+		"startDate" : "2014-08-01",
+		"endDate" : "Current"
 	},
 	{
 		"name" : "arrivalarm",
 		"logo" : "",
 		"web" : "http://arrivalarm.com/",
-		"summary" : "Mobile application"
+		"summary" : "Mobile application",
+		"startDate" : "2014-10-01",
+		"endDate" : "Current"
 	}
 	]
 };
 
-$("#header").prepend(HTMLheaderRole.replace("%data%", bio.role));
-$("#header").prepend(HTMLheaderName.replace("%data%", bio.name));
-$("#topContacts").prepend(HTMLcontactGeneric.replace("%data%", bio.phone).replace("%contact%", ""));
-$("#header").prepend(HTMLbioPic.replace("%data%", bio.image));
+bio.display = function() {
+	$("#header").prepend(HTMLheaderRole.replace("%data%", bio.role));
+	$("#header").prepend(HTMLheaderName.replace("%data%", bio.name));
+	$("#header").prepend(HTMLbioPic.replace("%data%", bio.image));
+	
+	$("#topContacts").prepend(HTMLmobile.replace("%data%", 
+			bio.contacts.phone));
+	$("#topContacts").prepend(HTMLemail.replace("%data%", 
+			bio.contacts.email));
+	$("#topContacts").prepend(HTMLtwitter.replace("%data%", 
+			bio.contacts.twitter));
+	$("#topContacts").prepend(HTMLlocation.replace("%data%", 
+			bio.contacts.address));
 
-if (bio.skills.length > 0) {
-	$("#header").append(HTMLskillsStart)
-	for (skill in bio.skills) {
-			$("#skills").append(HTMLskills.replace("%data%", bio.skills[skill]))
+	if (bio.skills.length > 0) {
+		$("#header").append(HTMLskillsStart)
+		for (skill in bio.skills) {
+				$("#skills").prepend(HTMLskills.replace("%data%", bio.skills[skill]))
+		}
 	}
 }
+bio.display()
 
-function displayWork() {
+work.display = function() {
 	if (work.employer.length > 0) {
 		for (empid in work.employer) {
 			var employer = work.employer[empid];
@@ -211,33 +235,9 @@ function displayWork() {
 	} else {console.log("No work items")};
 }
 
-displayWork();
+work.display();
 
-/* 
-$(document).click(function(loc) {
-	logClicks(loc.pageX, loc.pageY);
-	//console.log(loc)
-});
-*/
-/*
-function locationizer() {
-	var locArray = [];
-	for (var jobid in work.jobs) {
-        var containsloc = false;
-        for (var locid in locArray) {
-            if (locArray[locid] === work.jobs[jobid].location) {
-                containsloc = true;
-            }
-		} 
-        if (!containsloc) {
-            locArray.push(work.jobs[jobid].location)
-        }
-    }
-	return locArray;
-}
-*/
-
-$("#main").prepend(internationalizeButton)
+/* $("#main").prepend(internationalizeButton)
 function inName(in_name) {
 	var nameArray = in_name.trim().split(" ");
 	var fname = nameArray[0][0].toUpperCase() 
@@ -245,14 +245,29 @@ function inName(in_name) {
 	var lname = nameArray[1].toUpperCase();
 	return fname + " " + lname;
 }
-
+*/
 projects.display = function () {
-	var html_text = HTMLprojectStart
-	var project = projects[0]
-/*
-	HTMLprojectTitle.replace("%data%", project.name)
-	HTMLprojectDates.replace("%data%", project.startDate + project.endDate)
-	*/
+	var html_text = "";
+	var project = projects.projects[0];
+	
+	for (projid in projects.projects) {
+		html_text = "";
+		project = projects.projects[projid];
+		html_text += HTMLprojectTitle.replace("%data%", project.name);
+		html_text += HTMLprojectDates.replace("%data%", 
+						project.startDate 
+						+ " " 
+						+ project.endDate);
+		html_text += HTMLprojectDescription.replace("%data%",
+						project.summary);
+		if (!project.logo == "") {
+			html_text += HTMLprojectImage.replace("%data%",
+						project.logo);
+		}
+		$("#projects").append(HTMLprojectStart);
+		$(".project-entry:last").append(html_text);
+	}
+	return;
 }
-
+projects.display()
 
