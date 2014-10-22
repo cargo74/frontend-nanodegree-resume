@@ -195,7 +195,7 @@ function displayWork() {
 
 					$("#workExperience").append(HTMLworkStart);
 
-					if (posy.endDate === null or posy.trim().endDate === "") {
+					if (posy.endDate === null || posy.endDate.trim() === "") {
 						workDates = posy.startDate + " to Current";
 					} else {
 						workDates = posy.startDate + " to " + posy.endDate;
@@ -249,9 +249,10 @@ function inName(in_name) {
 projects.display = function () {
 	var html_text = HTMLprojectStart
 	var project = projects[0]
-
+/*
 	HTMLprojectTitle.replace("%data%", project.name)
 	HTMLprojectDates.replace("%data%", project.startDate + project.endDate)
+	*/
 }
 
 
