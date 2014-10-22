@@ -1,7 +1,7 @@
 var bio = {
 	"name" : "James Langmead",
 	"role" : "software designer",
-	"welcome" : "I design software with an eye to the larger, human system within which software, invariably operates. I want to work with people who embrace change and explore new ideas. I want to work with an organisation which understands how to nurture individuals, the community and the environment.\nI believe that creating something from nothing is a process as close to magic and to be called so. There is no accounting for innovation in a company's balance sheet.",
+	"welcome" : "Software doesn't operate in a vacuumn, but as part of a human system. I want to work with people who value individuals, community and environment. \nCreating something from nothing is as close to magic as we can get. There is no accounting for innovation in a company's balance sheet.",
 	"image" : "images/picnic.jpg",
 	"contacts" : {
 		"twitter" : "cargosoon",
@@ -18,6 +18,29 @@ var bio = {
 		"sql"
 	]
 };
+bio.display = function() {
+	$("#header").prepend(HTMLheaderRole.replace("%data%", bio.role));
+	$("#header").prepend(HTMLheaderName.replace("%data%", bio.name));
+	$("#header").prepend(HTMLbioPic.replace("%data%", bio.image));
+	$("#header").append(HTMLWelcomeMsg.replace("%data%", bio.welcome));
+	
+	$("#topContacts").prepend(HTMLmobile.replace("%data%", 
+			bio.contacts.phone));
+	$("#topContacts").prepend(HTMLemail.replace("%data%", 
+			bio.contacts.email));
+	$("#topContacts").prepend(HTMLtwitter.replace("%data%", 
+			bio.contacts.twitter));
+	$("#topContacts").prepend(HTMLlocation.replace("%data%", 
+			bio.contacts.address));
+	
+	if (bio.skills.length > 0) {
+		$("#header").append(HTMLskillsStart);
+		for (skill in bio.skills) {
+				$("#skills").prepend(HTMLskills.replace("%data%", bio.skills[skill]));
+		}
+	}
+}
+
 
 var work = {
 	"employer" : [
@@ -136,74 +159,6 @@ var work = {
 	}
 	] 
 };
-
-var education = {
-	"schools": [
-	{
-		"institution"  : "University of Queensland",
-		"qualification" : "Bachelor of Information Technology",
-		"major" : "Information Systems",
-		"graduation" : "2007-06-01"
-	},
-	{
-		"institution"  : "University of Queensland",
-		"qualification" : "Bachelor of Arts",
-		"major" : "Cultural Studies",
-		"graduation" : "2007-06-01"
-	},
-	{
-		"institution"  : "Queensland University of Technology",
-		"qualification" : "Master of Business Administration",
-		"major" : "Innovation",
-		"graduation" : "2016-06-01"
-	}
-	]
-};
-
-var projects = {
-	"projects" : [
-	{
-		"name" : "rungling",
-		"logo" : "images/rungling-logo-white-thumbnail.jpg",
-		"web" : "http://www.rungling.com/",
-		"summary" : "Crowd funding for songwriters",
-		"startDate" : "2014-08-01",
-		"endDate" : "Current"
-	},
-	{
-		"name" : "arrivalarm",
-		"logo" : "",
-		"web" : "http://arrivalarm.com/",
-		"summary" : "Mobile application",
-		"startDate" : "2014-10-01",
-		"endDate" : "Current"
-	}
-	]
-};
-
-bio.display = function() {
-	$("#header").prepend(HTMLheaderRole.replace("%data%", bio.role));
-	$("#header").prepend(HTMLheaderName.replace("%data%", bio.name));
-	$("#header").prepend(HTMLbioPic.replace("%data%", bio.image));
-	
-	$("#topContacts").prepend(HTMLmobile.replace("%data%", 
-			bio.contacts.phone));
-	$("#topContacts").prepend(HTMLemail.replace("%data%", 
-			bio.contacts.email));
-	$("#topContacts").prepend(HTMLtwitter.replace("%data%", 
-			bio.contacts.twitter));
-	$("#topContacts").prepend(HTMLlocation.replace("%data%", 
-			bio.contacts.address));
-
-	if (bio.skills.length > 0) {
-		$("#header").append(HTMLskillsStart)
-		for (skill in bio.skills) {
-				$("#skills").prepend(HTMLskills.replace("%data%", bio.skills[skill]))
-		}
-	}
-}
-bio.display()
-
 work.display = function() {
 	if (work.employer.length > 0) {
 		for (empid in work.employer) {
@@ -235,17 +190,70 @@ work.display = function() {
 	} else {console.log("No work items")};
 }
 
-work.display();
-
-/* $("#main").prepend(internationalizeButton)
-function inName(in_name) {
-	var nameArray = in_name.trim().split(" ");
-	var fname = nameArray[0][0].toUpperCase() 
-			+ nameArray[0].slice(1).toLowerCase();
-	var lname = nameArray[1].toUpperCase();
-	return fname + " " + lname;
+var education = {
+	"schools": [
+	{
+		"institution"  : "University of Queensland",
+		"qualification" : "Bachelor of Information Technology",
+		"major" : "Information Systems",
+		"graduation" : "2007-06-01",
+		"location" : "Brisbane, QLD, Australia"
+	},
+	{
+		"institution"  : "University of Queensland",
+		"qualification" : "Bachelor of Arts",
+		"major" : "Cultural Studies",
+		"graduation" : "2007-06-01",
+		"location" : "Brisbane, QLD, Australia"
+	},
+	{
+		"institution"  : "Queensland University of Technology",
+		"qualification" : "Master of Business Administration",
+		"major" : "Innovation",
+		"graduation" : "2016-06-01",
+		"location" : "Brisbane, QLD, Australia"
+	}
+	]
+};
+education.display = function(){
+	var html_text = "";
+	var school = education.schools[0];
+	for (schoolid in education.schools) {
+		html_text = "";
+		school = education.schools[schoolid];
+		$("#education").prepend( HTMLschoolStart);
+		html_text += HTMLschoolName.replace("%data%",
+			school.institution);
+		html_text += HTMLschoolDegree.replace("%data%",
+			school.qualification);
+		html_text += HTMLschoolDates.replace("%data%",
+			school.graduation);
+		html_text += HTMLschoolMajor.replace("%data%",
+			school.major);
+		$(".education-entry:last").append(html_text);
+	}
 }
-*/
+
+var projects = {
+	"projects" : [
+	{
+		"name" : "rungling",
+		"logo" : "images/rungling-logo-white-thumbnail.jpg",
+		"web" : "http://www.rungling.com/",
+		"summary" : "Crowd funding for songwriters",
+		"startDate" : "2014-08-01",
+		"endDate" : "Current"
+	},
+	{
+		"name" : "arrivalarm",
+		"logo" : "",
+		"web" : "http://arrivalarm.com/",
+		"summary" : "Mobile application",
+		"startDate" : "2014-10-01",
+		"endDate" : "Current"
+	}
+	]
+};
 projects.display = function () {
 	var html_text = "";
 	var project = projects.projects[0];
@@ -269,5 +277,22 @@ projects.display = function () {
 	}
 	return;
 }
-projects.display()
+
+/* Now call on the object functions to display data */
+projects.display();
+bio.display();
+work.display();
+education.display();
+
+$("#mapDiv").append(googleMap);
+
+/* $("#main").prepend(internationalizeButton)
+function inName(in_name) {
+	var nameArray = in_name.trim().split(" ");
+	var fname = nameArray[0][0].toUpperCase() 
+			+ nameArray[0].slice(1).toLowerCase();
+	var lname = nameArray[1].toUpperCase();
+	return fname + " " + lname;
+}
+*/
 
