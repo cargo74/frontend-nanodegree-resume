@@ -21,7 +21,7 @@ var bio = {
 bio.display = function() {
 	$("#header").prepend(HTMLheaderRole.replace("%data%", bio.role));
 	$("#header").prepend(HTMLheaderName.replace("%data%", bio.name));
-	$("#header").prepend(HTMLbioPic.replace("%data%", bio.image));
+	$("#header").append(HTMLbioPic.replace("%data%", bio.image));
 	$("#header").append(HTMLWelcomeMsg.replace("%data%", bio.welcome));
 	
 	$("#topContacts").prepend(HTMLmobile.replace("%data%", 
@@ -41,7 +41,6 @@ bio.display = function() {
 	}
 }
 
-
 var work = {
 	"employer" : [
 	{
@@ -52,7 +51,7 @@ var work = {
 			"name" : "Qality Assurance Engineer",
 			"startDate" : "2007-03-01",
 			"endDate" : "2008-01-01",
-			"location" : "Brisbane",
+			"location" : "Brisbane, QLD, Australia",
 			"dragonSlayers" : [
 			{
 				"summary" : "Automated 20% of test coverage",
@@ -93,7 +92,7 @@ var work = {
 			"name" : "Software Consultant",
 			"startDate" : "2010-08-01",
 			"endDate" : "2011-04-01",
-			"location" : "Brisbane",
+			"location" : "Brisbane, QLD, Australia",
 			"dragonSlayers" : [
 			{
 				"summary" : "Completed first change request from start to finish",
@@ -122,7 +121,7 @@ var work = {
 			"name" : "Business Consultant",
 			"startDate" : "2011-04-01",
 			"endDate" : "",
-			"location" : "Brisbane",
+			"location" : "St Kilda Road, South Melbourne, Victoria, Australia",
 			"dragonSlayers" : [
 			{
 				"summary" : "Promoted and helped to win an innovative sales bid worth $1.5 million",
@@ -197,21 +196,21 @@ var education = {
 		"qualification" : "Bachelor of Information Technology",
 		"major" : "Information Systems",
 		"graduation" : "2007-06-01",
-		"location" : "Brisbane, QLD, Australia"
+		"location" : "University of Queensland, St Lucia, Brisbane, QLD, Australia"
 	},
 	{
 		"institution"  : "University of Queensland",
 		"qualification" : "Bachelor of Arts",
 		"major" : "Cultural Studies",
 		"graduation" : "2007-06-01",
-		"location" : "Brisbane, QLD, Australia"
+		"location" : "University of Queensland, St Lucia, Brisbane, QLD, Australia"
 	},
 	{
 		"institution"  : "Queensland University of Technology",
 		"qualification" : "Master of Business Administration",
 		"major" : "Innovation",
 		"graduation" : "2016-06-01",
-		"location" : "Brisbane, QLD, Australia"
+		"location" : "Queensland University of Technology, Brisbane, QLD, Australia"
 	}
 	]
 };

@@ -127,19 +127,22 @@ function initializeMap() {
     // initializes an empty array
     var locations = [];
 
-    // adds the single location property from bio to the locations array
-    locations.push(bio.contacts.location);
+    // bio address
+    locations.push(bio.contacts.address);
     
-    // iterates through school locations and appends each location to
-    // the locations array
+    // school locations
     for (var school in education.schools) {
       locations.push(education.schools[school].location);
     }
 
-    // iterates through work locations and appends each location to
-    // the locations array
-    for (var job in work.jobs) {
-      locations.push(work.jobs[job].location);
+    // work locations array
+    for (var empid in work.employer) {
+		for (var posid in work.employer[empid].position) {
+			var address = work.employer[empid].position[posid].location
+			if (address) {
+				locations.push(address);
+			}
+		}
     }
 	console.log(locations);
     return locations;
@@ -231,10 +234,6 @@ function initializeMap() {
   pinPoster(locations);
   
 };
-
-/*
-Uncomment all  the code below when you're ready to implement a Google Map!
-*/
 
 // Calls the initializeMap() function when the page loads
 window.addEventListener('load', initializeMap);
